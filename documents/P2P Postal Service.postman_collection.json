@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "d7427048-bb4f-48d4-9285-b3921b6fd5a9",
+		"name": "P2P Postal Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41785106"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "forgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sewlesewbiazen65@gmail.com\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{P2PUrl}}/api/users/forgotpw",
+							"host": [
+								"{{P2PUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"forgotpw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(pm.response.text());\r",
+									"pm.globals.set(\"p2pAccessToken\", \"Bearer \"+ jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sewlesewbiazen65@gmail.com\",\r\n    \"password\":\"JustPassword\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{P2PUrl}}/api/users/login",
+							"host": [
+								"{{P2PUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"SewlesewB\",\r\n    \"userType\":\"Sender\",\r\n    \"email\":\"sewlesewbiazen65@gmail.com\",\r\n    \"password\":\"JustPassword\",\r\n    \"confirm_password\":\"JustPassword\",\r\n    \"phoneNumber\":\"0961718044\"   \r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{P2PUrl}}/api/users/register",
+							"host": [
+								"{{P2PUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dashboard",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{p2pAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{P2PUrl}}/api/users/dashboard",
+							"host": [
+								"{{P2PUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delivery",
+			"item": [
+				{
+					"name": "Delivery Request",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"senderId\":\"67e63d9eb4774bd13bbf49dc\",\r\n    \"pickupCity\":\"Addis Ababa\",\r\n    \"pickupDate\":\"2025-03-27T14:21:14.960Z\",\r\n    \"deliveryCity\":\"Dubai\",\r\n    \"desiredDeliveryDate\":\"2025-03-27T14:21:14.960Z\",\r\n    \"itemDescription\":\"Injera packed and deliverd to X hotel\",\r\n    \"weightKg\":100,\r\n    \"budget\":1000,\r\n    \"status\":\"Pending\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/delivery-request/add",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"delivery-request",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/delivery-request/getAll",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"delivery-request",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/delivery-request/getById?id =67e6622786c8257fc0f7e6fe",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"delivery-request",
+										"getById"
+									],
+									"query": [
+										{
+											"key": "id ",
+											"value": "67e6622786c8257fc0f7e6fe"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Let Me Deliver",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"travelerId\":\"67e55eccbedb38ea52d156a3\",\r\n    \"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n    \"departureCity\":\"Addis Ababa\",\r\n    \"arrivalCity\":\"Guanzxou\",\r\n    \"departureDate\":\"2025-03-27T20:21:14.960Z\",\r\n    \"arrivalDate\":\"2025-03-27T20:21:14.960Z\",   \r\n    \"maxWeight\":100,\r\n    \"price\":1000,\r\n    \"status\":\"Applied\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/let-me-deliver/add",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"let-me-deliver",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"travelerId\":\"67e55eccbedb38ea52d156a3\",\r\n    \"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n    \"departureCity\":\"Addis Ababa\",\r\n    \"arrivalCity\":\"Guanzxou\",\r\n    \"departureDate\":\"2025-03-27T20:21:14.960Z\",\r\n    \"arrivalDate\":\"2025-03-27T20:21:14.960Z\",   \r\n    \"maxWeight\":100,\r\n    \"price\":1000,\r\n    \"status\":\"Applied\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/let-me-deliver/getAll",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"let-me-deliver",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"travelerId\":\"67e55eccbedb38ea52d156a3\",\r\n    \"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n    \"departureCity\":\"Addis Ababa\",\r\n    \"arrivalCity\":\"Guanzxou\",\r\n    \"departureDate\":\"2025-03-27T20:21:14.960Z\",\r\n    \"arrivalDate\":\"2025-03-27T20:21:14.960Z\",   \r\n    \"maxWeight\":100,\r\n    \"price\":1000,\r\n    \"status\":\"Applied\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/let-me-deliver/getById/",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"let-me-deliver",
+										"getById",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delivery Contract",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"letMeDeliverId\":\"67e672e7a72b9e71b5d5a78c\",\r\n\"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n\"trackingCode\":\"ADDDUB01\",\r\n\"priceAgrredOn\":1000,\r\n\"status\":\"Agreed\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/deliver-contract/add",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"deliver-contract",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAll",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"letMeDeliverId\":\"67e672e7a72b9e71b5d5a78c\",\r\n\"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n\"trackingCode\":\"ADDDUB01\",\r\n\"priceAgrredOn\":1000,\r\n\"status\":\"Agreed\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/deliver-contract/getAll",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"deliver-contract",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"letMeDeliverId\":\"67e672e7a72b9e71b5d5a78c\",\r\n\"deliverRequestId\":\"67e6623686c8257fc0f7e704\",\r\n\"trackingCode\":\"ADDDUB01\",\r\n\"priceAgrredOn\":1000,\r\n\"status\":\"Agreed\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{P2PUrl}}/api/deliver-contract/getById/",
+									"host": [
+										"{{P2PUrl}}"
+									],
+									"path": [
+										"api",
+										"deliver-contract",
+										"getById",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
