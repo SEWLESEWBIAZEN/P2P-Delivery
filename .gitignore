@@ -1,2 +1,5 @@
 src code/backend/node_modules
 src code/backend/*.env
+src code/frontend/node_modules
+src code/frontend/*.env
+src code/frontend/*.next
